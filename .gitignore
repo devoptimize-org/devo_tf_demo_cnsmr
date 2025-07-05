@@ -1,0 +1,71 @@
+# Terraform files and directories
+.terraform/
+.terraform.lock.hcl
+
+# Terraform state files
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate
+*.tfstate.*
+
+# Terraform plan files
+*.tfplan
+*.tfplan.*
+
+# Terraform variable files (may contain sensitive data)
+terraform.tfvars
+*.tfvars
+*.tfvars.json
+
+# Terraform configuration files
+.terraformrc
+terraform.rc
+
+# Terraform crash logs
+crash.log
+crash.*.log
+
+# Terraform override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform lock info files
+.terraform.tfstate.lock.info
+
+# Terraform CLI configuration files
+.terraform.d/
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.backup
+*.tmp
+
+# Archive files
+*.tar.gz
+*.zip
+*.tgz
+
+# Build directories
+build/
+dist/
+
+# Test directories
+test-af-root/ 

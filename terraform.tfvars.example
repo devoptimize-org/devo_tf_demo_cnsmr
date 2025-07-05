@@ -1,0 +1,13 @@
+# Example Terraform variables file
+# Copy this file to terraform.tfvars and modify as needed
+
+# AWS Configuration
+aws_region = "us-east-1"
+
+# Environment Configuration
+environment = "demo"
+
+# Module Name Prefixes
+big_a_name_prefix   = "consumer-biga"
+big_b_name_prefix   = "consumer-bigb"
+small_c_name_prefix = "consumer-smallc" 
