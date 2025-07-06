@@ -5,6 +5,9 @@
 
 set -e  # Exit on any error
 
+# Terraform/OpenTofu selection (default to tofu)
+TF=${TF:-tofu}
+
 # Check if test-af-root directory exists
 if [ -d "test-af-root" ]; then
     echo "❌ Directory 'test-af-root' already exists. Please remove it first or run 'make clean'."
@@ -46,8 +49,8 @@ EOF
 echo "✅ Created temporary main.tf to download consumer module"
 
 # Run terraform init to fetch the root module
-echo "🔄 Running terraform init to fetch the consumer module..."
-terraform init
+echo "🔄 Running $(TF) init to fetch the consumer module..."
+$(TF) init
 
 # Find the downloaded consumer module directory
 MODULE_DIR=$(find .terraform/modules -name "af_consumer" -type d | head -1)
@@ -73,12 +76,12 @@ echo "🧹 Cleaning up .terraform directory..."
 rm -rf .terraform .terraform.lock.hcl
 
 # Run terraform init again on the consumer module (now as root)
-echo "🔄 Running terraform init on consumer module as root..."
-terraform init
+echo "🔄 Running $(TF) init on consumer module as root..."
+$(TF) init
 
 # Run terraform plan to get breadcrumb output
-echo "📊 Running terraform plan to see breadcrumb output..."
-terraform plan
+echo "📊 Running $(TF) plan to see breadcrumb output..."
+$(TF) plan
 
 echo ""
 echo "🎉 Artifactory consumer module test completed successfully!"

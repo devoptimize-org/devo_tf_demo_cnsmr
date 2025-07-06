@@ -1,6 +1,6 @@
 # DevOptimize Terraform Demo Consumer
 
-This Terraform root module demonstrates consuming Artifactory-published modules from the `devo_tf_demo_module` project.
+This Terraform/OpenTofu root module demonstrates consuming Artifactory-published modules from the `devo_tf_demo_module` project.
 
 ## Overview
 
@@ -46,6 +46,18 @@ devoptimize.jfrog.io/devo-terraform__devo_tf_demo_module/<MODULE-NAME>/aws
    make clean
    ```
 
+### Using Terraform or OpenTofu
+
+The Makefile supports both Terraform and OpenTofu. By default, it uses OpenTofu (`tofu`). To use Terraform instead:
+
+```bash
+# Use OpenTofu (default)
+make check
+
+# Use Terraform
+make check TF=terraform
+```
+
 ### Manual Usage
 
 1. **Configure Variables**: Copy the example variables file and customize:
@@ -54,18 +66,30 @@ devoptimize.jfrog.io/devo-terraform__devo_tf_demo_module/<MODULE-NAME>/aws
    # Edit terraform.tfvars with your desired values
    ```
 
-2. **Initialize Terraform**: 
+2. **Initialize Terraform/OpenTofu**: 
    ```bash
+   # Using OpenTofu (default)
+   tofu init
+   
+   # Using Terraform
    terraform init
    ```
 
 3. **Plan Deployment**:
    ```bash
+   # Using OpenTofu (default)
+   tofu plan
+   
+   # Using Terraform
    terraform plan
    ```
 
 4. **Apply Configuration**:
    ```bash
+   # Using OpenTofu (default)
+   tofu apply
+   
+   # Using Terraform
    terraform apply
    ```
 
@@ -93,8 +117,8 @@ This runs the `af-root-consumer.sh` script which:
 1. Creates a temporary `test-af-root/` directory
 2. Downloads the consumer module from Artifactory using the registry format
 3. Copies the consumer module files to use as the root module
-4. Runs `terraform init` to download all dependency modules
-5. Runs `terraform plan` to verify all modules load correctly and show breadcrumbs
+4. Runs `tofu init`/`terraform init` to download all dependency modules
+5. Runs `tofu plan`/`terraform plan` to verify all modules load correctly and show breadcrumbs
 
 The test demonstrates:
 - ✅ Consumer module download from Artifactory (v1.0.0)
@@ -139,7 +163,7 @@ The module exposes various outputs from each referenced module:
 
 ## Breadcrumbs
 
-Each module includes breadcrumb outputs that will appear in `terraform plan` and `terraform apply` to demonstrate that modules and their dependencies are loaded properly from Artifactory.
+Each module includes breadcrumb outputs that will appear in `terraform plan`/`tofu plan` and `terraform apply`/`tofu apply` to demonstrate that modules and their dependencies are loaded properly from Artifactory.
 
 ## Module Dependencies
 

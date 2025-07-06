@@ -1,16 +1,21 @@
-# Terraform files and directories
+# Terraform/OpenTofu files and directories
 .terraform/
 .terraform.lock.hcl
+.tofu.lock.hcl
 
-# Terraform state files
+# Terraform/OpenTofu state files
 terraform.tfstate
 terraform.tfstate.backup
 *.tfstate
 *.tfstate.*
+*.tofu.tfstate
+*.tofu.tfstate.*
 
-# Terraform plan files
+# Terraform/OpenTofu plan files
 *.tfplan
 *.tfplan.*
+*.tofu.tfplan
+*.tofu.tfplan.*
 
 # Terraform variable files (may contain sensitive data)
 terraform.tfvars

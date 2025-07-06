@@ -16,59 +16,66 @@ NAMESPACE = devo_tf_demo_cnsmr
 PROVIDER = aws
 VERSION ?= 1.0.0
 
+# Terraform/OpenTofu selection (default to tofu)
+TF ?= tofu
+
 # Default target
 .PHONY: help
 help:
 	@echo "Available targets:"
-	@echo "  check      - Initialize and run terraform plan"
-	@echo "  init       - Initialize terraform (download modules)"
-	@echo "  plan       - Run terraform plan"
-	@echo "  apply      - Run terraform apply"
-	@echo "  output     - Show terraform outputs"
-	@echo "  validate   - Validate terraform configuration"
-	@echo "  clean      - Clean up terraform artifacts"
-	@echo "  format     - Format terraform files"
+	@echo "  check      - Initialize and run $(TF) plan"
+	@echo "  init       - Initialize $(TF) (download modules)"
+	@echo "  plan       - Run $(TF) plan"
+	@echo "  apply      - Run $(TF) apply"
+	@echo "  output     - Show $(TF) outputs"
+	@echo "  validate   - Validate $(TF) configuration"
+	@echo "  clean      - Clean up $(TF) artifacts"
+	@echo "  format     - Format $(TF) files"
 	@echo "  publish    - Archive and upload consumer module to Artifactory (VERSION=x.y.z)"
 	@echo "  archive    - Create zip archive of consumer module"
 	@echo "  upload     - Upload archived consumer module to Artifactory"
 	@echo "  check-creds - Verify Artifactory credentials are configured"
 	@echo "  test-af    - Run af-root-consumer.sh to test the published consumer module"
+	@echo ""
+	@echo "Variables:"
+	@echo "  TF         - Terraform/OpenTofu binary to use (default: tofu)"
+	@echo "  VERSION    - Version for publishing (default: 1.0.0)"
 
 # Initialize terraform
 .PHONY: init
 init:
-	@echo "Initializing terraform..."
-	@terraform init
+	@echo "Initializing $(TF)..."
+	@$(TF) init
 
 # Validate terraform configuration
 .PHONY: validate
 validate: init
-	@echo "Validating terraform configuration..."
-	@terraform validate
+	@echo "Validating $(TF) configuration..."
+	@$(TF) validate
 
 # Run terraform plan
 .PHONY: plan
 plan: validate
-	@echo "Running terraform plan..."
-	@terraform plan
+	@echo "Running $(TF) plan..."
+	@$(TF) plan
 
 # Run terraform apply
 .PHONY: apply
 apply: validate
-	@echo "Running terraform apply..."
-	@terraform apply -auto-approve
+	@echo "Running $(TF) apply..."
+	@$(TF) apply -auto-approve
 
 # Show terraform outputs
 .PHONY: output
 output:
-	@echo "Showing terraform outputs..."
-	@terraform output
+	@echo "Showing $(TF) outputs..."
+	@$(TF) output
 
 # Format terraform files
 .PHONY: format
 format:
-	@echo "Formatting terraform files..."
-	@terraform fmt
+	@echo "Formatting $(TF) files..."
+	@$(TF) fmt
 
 # Main check target - validates and plans
 .PHONY: check
@@ -81,11 +88,14 @@ check: plan
 # Clean up terraform artifacts
 .PHONY: clean
 clean:
-	@echo "Cleaning up terraform artifacts..."
+	@echo "Cleaning up $(TF) artifacts..."
 	@rm -rf .terraform/
 	@rm -f .terraform.lock.hcl
+	@rm -f .tofu.lock.hcl
 	@rm -f terraform.tfstate*
+	@rm -f *.tofu.tfstate*
 	@rm -f terraform.tfplan
+	@rm -f *.tofu.tfplan
 	@rm -rf build/
 	@rm -rf test-af-root/
 	@echo "✅ Cleanup complete!"
@@ -93,8 +103,8 @@ clean:
 # Destroy resources (if any were created)
 .PHONY: destroy
 destroy:
-	@echo "Destroying terraform resources..."
-	@terraform destroy -auto-approve
+	@echo "Destroying $(TF) resources..."
+	@$(TF) destroy -auto-approve
 
 # Check if Artifactory credentials are configured
 .PHONY: check-creds
@@ -161,9 +171,9 @@ test-af:
 # Show status
 .PHONY: status
 status:
-	@echo "Terraform status:"
+	@echo "$(TF) status:"
 	@echo "  Working directory: $(TERRAFORM_DIR)"
-	@echo "  Terraform version: $$(terraform version -json 2>/dev/null | jq -r '.terraform_version' 2>/dev/null || terraform version | head -1)"
+	@echo "  $(TF) version: $$($(TF) version -json 2>/dev/null | jq -r '.terraform_version' 2>/dev/null || $(TF) version | head -1)"
 	@echo "  Initialized: $$(test -d .terraform && echo "✓ Yes" || echo "✗ No")"
 	@echo "  Lock file exists: $$(test -f .terraform.lock.hcl && echo "✓ Yes" || echo "✗ No")"
 	@echo "  State file exists: $$(test -f terraform.tfstate && echo "✓ Yes" || echo "✗ No")" 
