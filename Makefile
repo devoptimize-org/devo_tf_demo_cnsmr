@@ -9,7 +9,7 @@
 
 # Variables
 TERRAFORM_DIR = .
-CONSUMER_NAME = devo_tf_demo_cnsmr
+CONSUMER_NAME = root
 ARTIFACTORY_REPO = devo-terraform
 ARTIFACTORY_BASE_URL = https://devoptimize.jfrog.io/artifactory
 NAMESPACE = devo_tf_demo_cnsmr

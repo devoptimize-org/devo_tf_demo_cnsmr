@@ -23,7 +23,7 @@ echo "📝 Creating temporary main.tf to download consumer module..."
 cat > main.tf << 'EOF'
 # Test module that references the Artifactory consumer module (latest version)
 module "af_consumer" {
-  source = "artifactory.jfrog.io/devo-terraform__devo_tf_demo_cnsmr/devo_tf_demo_cnsmr/aws"
+  source = "artifactory.jfrog.io/devo-terraform__devo_tf_demo_cnsmr/root/aws"
 }
 
 # Output the consumer module's outputs for testing
@@ -84,6 +84,6 @@ echo ""
 echo "🎉 Artifactory consumer module test completed successfully!"
 echo "📊 Review the plan output above to see the direct module dependency breadcrumbs"
 echo "✅ Consumer module running as root with all dependencies from Artifactory:"
-echo "   - Consumer module: devo_tf_demo_cnsmr v1.0.0 (running as root)"  
+echo "   - Consumer module: root v1.0.0 (running as root)"  
 echo "   - Dependency modules: moduleBigA, moduleBigB, moduleSmallC, moduleSmallD v1.2.0"
 echo "🧹 Run 'make clean' to remove the test-af-root directory" 
