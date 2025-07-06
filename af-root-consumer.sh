@@ -49,8 +49,8 @@ EOF
 echo "✅ Created temporary main.tf to download consumer module"
 
 # Run terraform init to fetch the root module
-echo "🔄 Running $(TF) init to fetch the consumer module..."
-$(TF) init
+echo "🔄 Running $TF init to fetch the consumer module..."
+$TF init
 
 # Find the downloaded consumer module directory
 MODULE_DIR=$(find .terraform/modules -name "af_consumer" -type d | head -1)
@@ -76,12 +76,12 @@ echo "🧹 Cleaning up .terraform directory..."
 rm -rf .terraform .terraform.lock.hcl
 
 # Run terraform init again on the consumer module (now as root)
-echo "🔄 Running $(TF) init on consumer module as root..."
-$(TF) init
+echo "🔄 Running $TF init on consumer module as root..."
+$TF init
 
 # Run terraform plan to get breadcrumb output
-echo "📊 Running $(TF) plan to see breadcrumb output..."
-$(TF) plan
+echo "📊 Running $TF plan to see breadcrumb output..."
+$TF plan
 
 echo ""
 echo "🎉 Artifactory consumer module test completed successfully!"

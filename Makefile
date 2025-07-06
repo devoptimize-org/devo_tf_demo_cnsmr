@@ -179,7 +179,7 @@ publish: upload
 .PHONY: test-af
 test-af:
 	@echo "🚀 Testing published consumer module from Artifactory..."
-	@bash af-root-consumer.sh
+	@TF=$(TF) bash af-root-consumer.sh
 
 # Show status
 .PHONY: status
