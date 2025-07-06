@@ -14,7 +14,7 @@ provider "aws" {
 
 # Reference moduleBigA from Artifactory
 module "big_a" {
-  source = "artifactory.jfrog.io/devo-terraform__devo_tf_demo_module/moduleBigA/aws"
+  source = "devoptimize.jfrog.io/devo-terraform__devo_tf_demo_module/moduleBigA/aws"
 
   environment = var.environment
   name_prefix = var.big_a_name_prefix
@@ -22,7 +22,7 @@ module "big_a" {
 
 # Reference moduleBigB from Artifactory
 module "big_b" {
-  source = "artifactory.jfrog.io/devo-terraform__devo_tf_demo_module/moduleBigB/aws"
+  source = "devoptimize.jfrog.io/devo-terraform__devo_tf_demo_module/moduleBigB/aws"
 
   environment = var.environment
   name_prefix = var.big_b_name_prefix
@@ -30,7 +30,7 @@ module "big_b" {
 
 # Reference moduleSmallC from Artifactory
 module "small_c" {
-  source = "artifactory.jfrog.io/devo-terraform__devo_tf_demo_module/moduleSmallC/aws"
+  source = "devoptimize.jfrog.io/devo-terraform__devo_tf_demo_module/moduleSmallC/aws"
 
   environment = var.environment
   name_prefix = var.small_c_name_prefix

@@ -26,7 +26,7 @@ echo "📝 Creating temporary main.tf to download consumer module..."
 cat > main.tf << 'EOF'
 # Test module that references the Artifactory consumer module (latest version)
 module "af_consumer" {
-  source = "artifactory.jfrog.io/devo-terraform__devo_tf_demo_cnsmr/root/aws"
+  source = "devoptimize.jfrog.io/devo-terraform__devo_tf_demo_cnsmr/root/aws"
 }
 
 # Output the consumer module's outputs for testing

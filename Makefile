@@ -23,6 +23,7 @@ TF ?= tofu
 .PHONY: help
 help:
 	@echo "Available targets:"
+	@echo "  setup      - Create terraform.tfvars from example"
 	@echo "  check      - Initialize and run $(TF) plan"
 	@echo "  init       - Initialize $(TF) (download modules)"
 	@echo "  plan       - Run $(TF) plan"
@@ -41,9 +42,20 @@ help:
 	@echo "  TF         - Terraform/OpenTofu binary to use (default: tofu)"
 	@echo "  VERSION    - Version for publishing (default: 1.0.0)"
 
+# Setup terraform.tfvars from example
+.PHONY: setup
+setup:
+	@echo "Setting up terraform.tfvars..."
+	@if [ ! -f terraform.tfvars ]; then \
+		cp terraform.tfvars.example terraform.tfvars; \
+		echo "✅ Created terraform.tfvars from example"; \
+	else \
+		echo "✅ terraform.tfvars already exists"; \
+	fi
+
 # Initialize terraform
 .PHONY: init
-init:
+init: setup
 	@echo "Initializing $(TF)..."
 	@$(TF) init
 
@@ -96,6 +108,7 @@ clean:
 	@rm -f *.tofu.tfstate*
 	@rm -f terraform.tfplan
 	@rm -f *.tofu.tfplan
+	@rm -f terraform.tfvars
 	@rm -rf build/
 	@rm -rf test-af-root/
 	@echo "✅ Cleanup complete!"
